@@ -33,25 +33,25 @@ export default function ReorderDashboard() {
     };
 
     return (
-        <div className="p-8 max-w-7xl mx-auto h-full flex flex-col">
-            <div className="mb-8">
-                <h1 className="text-3xl font-bold text-gray-900 tracking-tight">Smart Reorder List</h1>
-                <p className="text-gray-500 mt-2">ML-assisted inventory alerts sorted by priority and strategy.</p>
+        <div className="p-4 md:p-8 max-w-7xl mx-auto h-full flex flex-col">
+            <div className="mb-6 md:mb-8">
+                <h1 className="text-2xl md:text-3xl font-bold text-gray-900 tracking-tight">Smart Reorder List</h1>
+                <p className="text-gray-500 mt-1 text-sm md:text-base">ML-assisted inventory alerts sorted by priority and strategy.</p>
             </div>
 
-            <div className="flex-1 overflow-auto pr-2 pb-8">
+            <div className="flex-1 overflow-auto pr-0 md:pr-2 pb-8">
                 {loading ? (
                     <div className="flex justify-center items-center h-64">
                         <Loader2 className="animate-spin text-brand-500" size={32} />
                     </div>
                 ) : items.length === 0 ? (
-                    <div className="bg-white rounded-2xl p-12 text-center border border-gray-100 shadow-sm flex flex-col items-center">
+                    <div className="bg-white rounded-2xl p-8 md:p-12 text-center border border-gray-100 shadow-sm flex flex-col items-center">
                         <CheckCircle2 size={48} className="text-green-400 mb-4" />
                         <h3 className="text-lg font-bold text-gray-900">All Stocked Up!</h3>
-                        <p className="text-gray-500 mt-1">No buckets currently need reordering based on their strategies.</p>
+                        <p className="text-gray-500 mt-1 text-sm">No buckets currently need reordering based on their strategies.</p>
                     </div>
                 ) : (
-                    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 md:gap-6">
                         {items.map((item) => {
                             const uConfig = getUrgencyConfig(item.urgency);
 
