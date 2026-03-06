@@ -2,6 +2,7 @@ from fastapi import FastAPI, Depends, UploadFile, File, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
 from typing import List
+from contextlib import asynccontextmanager
 import pandas as pd
 from datetime import datetime
 import json
@@ -11,10 +12,13 @@ from database import engine, Base, get_db
 import models
 from bucketing import generate_bucket_id, generate_bucket_name
 
-# Create tables
-Base.metadata.create_all(bind=engine)
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    # Create tables on startup (runs after Uvicorn has bound to the port)
+    Base.metadata.create_all(bind=engine)
+    yield
 
-app = FastAPI(title="Jewelry Bucketing & ML Reorder System")
+app = FastAPI(title="Jewelry Bucketing & ML Reorder System", lifespan=lifespan)
 
 import os
 app.add_middleware(

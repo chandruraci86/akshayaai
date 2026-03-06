@@ -1,9 +1,10 @@
-services:
+databases:
   # 1. PostgreSQL Database
-  - type: pgo
-    name: jewel-db
+  - name: jewel-db
     plan: free
-    version: 16
+    postgresMajorVersion: "16"
+
+services:
 
   # 2. FastAPI Backend
   - type: web
