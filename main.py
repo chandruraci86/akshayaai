@@ -23,8 +23,9 @@ app = FastAPI(title="Jewelry Bucketing & ML Reorder System", lifespan=lifespan)
 import os
 app.add_middleware(
     CORSMiddleware,
-    # Allow local development and wildcard for Render static sites (can be tightened to specific URLs later)
-    allow_origins=["http://localhost:5173", "https://*.onrender.com"] if os.getenv("RENDER") else ["*"], 
+    # allow_origin_regex properly supports subdomain wildcards (allow_origins wildcard doesn't work in browsers)
+    allow_origins=["http://localhost:5173"],
+    allow_origin_regex=r"https://.*\.onrender\.com",
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
